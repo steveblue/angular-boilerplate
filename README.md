@@ -1,4 +1,4 @@
-Boilerplate repo for famo.us/angular builds.
+Angular AMD Boilerplate 
 
 ## Dependencies ##
 
