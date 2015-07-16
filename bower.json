@@ -1,0 +1,22 @@
+{
+  "name": "WebApp",
+  "version": "0.0.0",
+  "license": "license",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+      "requirejs": "=2.1.18",
+      "angular": "=1.4.0",
+      "headjs": "=1.0.3",
+      "es6-promise": "=2.2.0",
+      "angular-ui-router": "=0.2.15",
+      "angular-sanitize": "=1.3.16-build.119+sha.706a93a"
+  },
+  "resolutions": {
+      "angular": "=1.4.0"
+  }
+}
