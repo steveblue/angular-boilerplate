@@ -50,6 +50,8 @@ After that, you should be able to run `gulp dev` in the root directory of the re
 localhost:9000
 ```
 
+## Notes ##
+
 This boilerplate is the starter code for any Angular Project. It includes a gulp workflow to build and deploy projects for 2 environments, development and production. The main tasks are detailed in gulpfile.js. `gulp dev` will deploy a development server at `localhost:9000`. This task symlinks the files in /app, /assets, etc to /build/www/ and sets up watchers for changes in .html, .css, and .js files. The dev server may fail when changes are made to app.js. Can someone please fix and submit a pull request?
 
 `gulp prod` will copy all files outlined in config.paths.json to /build/prod/ and create a workable build that can be deployed to a staging server. You can modify what is copied in config.paths.json and/or modify the gulp tasks as needed.
