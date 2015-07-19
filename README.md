@@ -1,4 +1,5 @@
 Angular AMD Boilerplate 
+https://github.com/steveblue/angular-boilerplate/
 
 ## Dependencies ##
 
