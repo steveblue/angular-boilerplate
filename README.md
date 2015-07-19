@@ -29,7 +29,7 @@ Clone the repo into a local folder.
 Use the following command to clone the repo, replacing [username] with your Github username.
 
 ```
-git clone https://github.com/[username]/fa-boilerplate.git
+git clone https://github.com/[username]/angular-boilerplate.git
 ```
 
 
