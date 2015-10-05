@@ -1,6 +1,8 @@
 Angular AMD Boilerplate
 https://github.com/steveblue/angular-boilerplate/
 
+This project is starter code for a web app built with Angular 1.4.
+
 ## Dependencies ##
 
 You should install these frameworks at a system level before cloning the repo. Homebrew is helpful for installing node.js on a Mac, otherwise all other packages should be handled through npm. Note: if you have previously installed SASS via the gem, uninstall SASS and run the node-sass compiler instead, node-sass is a port of lib-sass and is much faster to compile.
@@ -62,4 +64,4 @@ This boilerplate is the starter code for any Angular Project. It includes a gulp
 
 `gulp prod` will copy all files outlined in config.paths.json to /build/prod/ and create a workable build that can be deployed to a staging server. You can modify what is copied in config.paths.json and/or modify the gulp tasks as needed.
 
-This project uses a AMD module pattern as a wrapper for virtually all JavaScript files. This allows you to inject dependencies. head.js is used to inject all depenencies prior to bootstrapping the app. SASS/Bourbon/Neat is included to bootstrap responsive states and includes templates for a responsive grid. You can switch this workflow out for another by editing the gulp tasks.
+This project uses a AMD module pattern as a wrapper for virtually all JavaScript files. This allows you to inject external dependencies not handled by Angular dependency injection. head.js is used to inject all dependencies prior to bootstrapping the app. SASS/Bourbon/Neat is included to bootstrap responsive states and includes templates for a responsive grid.
