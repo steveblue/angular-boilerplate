@@ -1,6 +1,6 @@
 
 var gulp    = require('gulp'),
-    rimraf  = require('rimraf'),
+    del  = require('del'),
     paths   = require('../config.paths.js'),
 
 // Paths
@@ -13,9 +13,9 @@ gulp.task('clean', ['clean:dev']);
 // Clean Dev Root
 gulp.task('clean:dev', function(callback){
 
-  rimraf(toClean.dev, function(error){
+  del(toClean.dev, function(error){
     if( error ){
-      console.log('Error on gulp clean ');
+      console.log('Error on gulp clean.');
       console.log(error);
     }
     callback();
@@ -26,7 +26,7 @@ gulp.task('clean:dev', function(callback){
 // Clean Prod Root
 gulp.task('clean:prod', function(callback){
 
-  rimraf(toClean.prod, function(error){
+  del(toClean.prod, function(error){
     if( error ){
       console.log('Error on gulp clean:prod ');
       console.log(error);
@@ -37,4 +37,3 @@ gulp.task('clean:prod', function(callback){
 });
 
 gulp.task('clean:both', ['clean:dev', 'clean:prod']);
-

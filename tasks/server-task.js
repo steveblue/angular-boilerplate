@@ -6,23 +6,34 @@ var gulp      = require('gulp'),
     connect     = require('connect'),
     st          = require('st'),
     livereload  = require('gulp-livereload'),
+    util        = require('gulp-util'),
 
     watch     = require('gulp-watch'),
-    nn        = new require('node-notifier')(),
     notify    = require('gulp-notify'),
-    paths     = require('../config.paths.js'),
+    paths     = require('../config.paths'),
 
 // Paths
     root      = paths.rootDir,
     devRoot   = paths.devDir,
     prodRoot  = paths.prodDir,
+    config;
+
+// strict arguments, gulp dev or gulp prod determine config.
+if(process.argv[2] === 'dev') {
+    config = require('../settings/local/config')[0];
+} else if(process.argv[2] === 'prod') {
+    config = require('../settings/prod/config')[0];
+} else {
+    config = require('../settings/local/config')[0];
+}
 
 // Options
-    options = {
+var options = {
       dev: {
-        host  : "localhost",
-        port  : 9000,
-        watch : devRoot + '/**',
+        host  : config.HOST,
+        port  : config.HOST_PORT,
+        lrPort: config.LIVERELOAD_PORT,
+        watch : devRoot + '/**/*.*',
         st    : {
           path        : devRoot,
           url         : '/',
@@ -34,8 +45,6 @@ var gulp      = require('gulp'),
         }
       },
       prod: {
-        host  : "localhost",
-        port  : 9000,
         watch : [prodRoot + '/**/*.*', '!'+prodRoot+'/lib/**/*.*'],
         st    : {
           path        : prodRoot,
@@ -47,7 +56,7 @@ var gulp      = require('gulp'),
           gzip        : true
         }
       }
-    };
+};
 
 // Fallback response factory function
 var fallback = function(root){
@@ -57,11 +66,16 @@ var fallback = function(root){
   };
 };
 
+
 // Start Development Server
 gulp.task('server:dev:start', function(callback){
 
   // Create Connect Server
-  var server = connect();
+  server = connect();
+
+  util.log('Local server starting up hosted at: ', util.colors.green(config.HOST));
+  util.log('Connect server listening on port: ', util.colors.green(config.HOST_PORT));
+  util.log('Connecting to API at: ', util.colors.green(config.API_HOST));
 
   // Add serve static middleware
   server.use( st(options.dev.st) );
@@ -72,44 +86,23 @@ gulp.task('server:dev:start', function(callback){
   // Start Server
   http.createServer(server).listen(options.dev.port);
 
-  nn.notify({
-    title:'Gulp - Dev Server',
-    message: 'Dev Server Started'
-  });
-
   callback();
 });
 
 // Start Livereload server watching options.dev.watch
 gulp.task('server:lr', function(done){
-  livereload.listen();
-  // TODO: Remove function in watch when jshint:watch is fixed
-  watch(options.dev.watch, function(files){
-    gulp.start('jshint:app');
-    return files.pipe( livereload() );
-  });
-    //.pipe( livereload() );
+    livereload.listen(options.dev.lrPort);
 
-  done();
+    gulp.watch(paths.sass.src, ['sass:dev']);
+    gulp.watch(paths.jshint.app, ['jshint:dev']);
+    gulp.watch(paths.symlink, ['symlink:reload']);
+
+    gulp.watch([paths.devDir+'/css/styles.css',paths.devDir+'/**/*.js', paths.devDir+'/**/*.html', paths.devDir+'/*.html'], function(event) {
+		gulp.src(event.path)
+			.pipe(livereload());
+	});
+
+    util.log('Livereload server listening on port: ', util.colors.magenta(options.dev.lrPort));
 });
 
 gulp.task('server:dev', ['server:dev:start', 'server:lr']);
-
-// Simple production connect server
-gulp.task('server:prod', function(callback){
-
-  // see server:dev:start for line comments
-  var server = connect();
-  server.use( st(options.prod.st) );
-  server.use( fallback(prodRoot) );
-  http.createServer(server).listen(options.prod.port);
-
-  nn.notify({
-    title:'Gulp - Prod Server',
-    message: 'Dev Server Started'
-  });
-
-  callback();
-});
-
-

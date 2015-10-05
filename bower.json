@@ -1,6 +1,6 @@
 {
-  "name": "WebApp",
-  "version": "0.0.0",
+  "name": "ng-amd-boilerplate",
+  "version": "1.0.0",
   "license": "license",
   "private": true,
   "ignore": [
