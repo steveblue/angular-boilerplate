@@ -2,7 +2,7 @@
 var gulp    = require('gulp'),
     plumber = require('gulp-plumber'),
     rename  = require('gulp-rename'),
-    cmq     = require('gulp-combine-media-queries'),
+    cmq     = require('gulp-group-css-media-queries'),
     sass    = require('gulp-sass'),
     neat    = require('node-neat').includePaths,
     notify  = require('gulp-notify'),
