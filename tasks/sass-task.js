@@ -95,5 +95,5 @@ gulp.task('sass:compile:prod', function () {
       log: false
     }))
     .pipe(rename('styles.css'))
-    .pipe(gulp.dest(paths.dev));
+    .pipe(gulp.dest(paths.prod));
 });
